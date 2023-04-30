@@ -1,3 +1,3 @@
 export interface GetUserPort {
-  id: string
+  id: string;
 }

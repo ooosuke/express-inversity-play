@@ -10,7 +10,7 @@
     "clean": "rm -rf dist",
     "build": "yarn run clean && yarn tsc",
     "start": "node .",
-    "lint": "yarn run eslint --cache --fix & src/ && prettier --write src/"
+    "lint": "yarn run eslint --cache --fix src/ && prettier --write src/"
   },
   "dependencies": {
     "class-transformer": "^0.5.1",
