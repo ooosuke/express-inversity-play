@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: lint
-        run: docker-compose run --rm app yarn lint
+        run: docker-compose run --rm app yarn run lint
