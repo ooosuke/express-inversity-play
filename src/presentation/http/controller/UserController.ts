@@ -12,11 +12,14 @@ import { TYPES } from "@app/lib/inversity/types";
 import { GetUserUseCase } from "@app/usecase/user/GetUserUseCase";
 import { CreateUserUseCase } from "@app/usecase/user/CreateUserUseCase";
 import { UserSerializer } from "@app/presentation/http/serializer/UserSerializer";
+import { GetAllUserUseCase } from "@app/usecase/user/GetAllUserUseCase";
 
 @controller("/users")
 export class UserController implements interfaces.Controller {
   constructor(
     @inject(TYPES.GetUserUseCase) private getUserUseCase: GetUserUseCase,
+    @inject(TYPES.GetAllUserUseCase)
+    private getAllUserUseCase: GetAllUserUseCase,
     @inject(TYPES.CreateUserUseCase)
     private createUserUseCase: CreateUserUseCase
   ) {}
@@ -49,6 +52,20 @@ export class UserController implements interfaces.Controller {
     } catch (error) {
       console.error(error);
       res.status(500).send({ message: "createUser fail." });
+    }
+  }
+
+  @httpGet("/")
+  private async allUser(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    try {
+      const users = await this.getAllUserUseCase.handle();
+      res.status(200).json(users.map((user) => UserSerializer.serialize(user)));
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "allUser fail." });
     }
   }
 }
