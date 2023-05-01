@@ -9,4 +9,26 @@ services:
       - .:/usr/app
     ports:
       - 3000:3000
+    env_file:
+      - ./env/local.env
+    depends_on:
+      - mysql
+    networks:
+      - express-inversify-play
     command: /bin/sh -c "yarn dev"
+  mysql:
+    image: mysql:8.0.28
+    platform: linux/amd64
+    container_name: db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=express-inversify-play
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./mysql.conf:/etc/mysql/conf.d/mysql.cnf
+    restart: always
+    networks:
+      - express-inversify-play
+networks:
+  express-inversify-play:
