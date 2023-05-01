@@ -3,10 +3,12 @@
 ![](https://github.com/ooosuke/express-inversity-play/actions/workflows/main.yml/badge.svg)
 
 This is a demo application using express and inversity. It uses a clean architecture.
+docker and docker-compose are required to start。
 
 - express
 - inversity
 - inversity-express-utis
+- prisma
 
 ## Setup
 
@@ -21,15 +23,12 @@ yarn install
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
+cp env/local.env.template env/local.env
+docker-compose up -d
 ```
 
-## lint
+## Database Migration
 
 ```bash
-npm run lint
-# or
-yarn lint
+bin/migration.sh
 ```
